@@ -38,11 +38,10 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v7
-        with:
-          with:
-            context: .
-            push: true
-            tags: ${{ env.DOCKER_REPO }}:${{ env.COMMIT_SHA }} , ${{ env.DOCKER_REPO }}:latest
-            labels: ${{ steps.meta.outputs.labels }}
-            cache-from: type=gha
-            cache-to: type=gha,mode=max
+        with:          
+          context: .
+          push: true
+          tags: ${{ env.DOCKER_REPO }}:${{ env.COMMIT_SHA }} , ${{ env.DOCKER_REPO }}:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
