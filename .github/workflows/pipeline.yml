@@ -23,7 +23,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v4
         with:
-          username: ${{ env.DOCKER_HUB_LOGIN }}
+          username: ${{ vars.DOCKER_HUB_LOGIN }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: Get short Git commit SHA
@@ -34,14 +34,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-            images: ${{ env.DOCKER_REPO }}
+            images: ${{ vars.DOCKER_REPO }}
 
       - name: Build and push
         uses: docker/build-push-action@v7
         with:          
           context: .
           push: true
-          tags: ${{ env.DOCKER_REPO }}:${{ env.COMMIT_SHA }} , ${{ env.DOCKER_REPO }}:latest
+          tags: ${{ vars.DOCKER_REPO }}:${{ env.COMMIT_SHA }} , ${{ vars.DOCKER_REPO }}:latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
